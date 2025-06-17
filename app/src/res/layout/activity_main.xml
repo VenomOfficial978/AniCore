@@ -1,4 +1,3 @@
-<!-- AniCore/app/src/main/res/layout/activity_main.xml -->
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainLayout"
@@ -64,5 +63,17 @@
             android:textSize="20sp"
             android:layout_gravity="center" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/openDashboardButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📋 Open Dashboard"
+        android:background="#3F51B5"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
 
 </LinearLayout>
