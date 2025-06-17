@@ -1,4 +1,5 @@
-package com.example.anicore;
+// AniCore/app/src/main/java/com/venom/anicore/MainActivity.java
+package com.venom.anicore;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,11 +10,8 @@ import android.os.Bundle;
 import android.webkit.*;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.bumptech.glide.Glide;
-
 import org.json.JSONObject;
-
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -59,25 +57,24 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(REDIRECT_URI)) {
-                    Uri uri = Uri.parse(url.replace("#", "?")); // Convert fragment to query
+                    Uri uri = Uri.parse(url.replace("#", "?"));
                     String token = uri.getQueryParameter("access_token");
-
                     if (token != null) {
                         prefs.edit().putString("access_token", token).apply();
                         setContentView(R.layout.activity_main);
                         initViews();
                         fetchUserData(token);
                     }
-
                     return true;
                 }
                 return false;
             }
 
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
                 if (url.contains("access_token=")) {
                     view.stopLoading();
-                    onPageFinished(view, url);
+                    shouldOverrideUrlLoading(view, url);
                 }
             }
         });
@@ -90,14 +87,15 @@ public class MainActivity extends AppCompatActivity {
         userInfoLayout = findViewById(R.id.userInfoLayout);
         userName = findViewById(R.id.userName);
         userAvatar = findViewById(R.id.userAvatar);
+
+        loginButton.setOnClickListener(v -> openLoginWebView());
     }
 
     private void fetchUserData(String token) {
         new Thread(() -> {
             try {
                 String query = "{ Viewer { name avatar { large } } }";
-                JSONObject jsonBody = new JSONObject();
-                jsonBody.put("query", query);
+                JSONObject jsonBody = new JSONObject().put("query", query);
 
                 URL url = new URL("https://graphql.anilist.co");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -128,10 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                runOnUiThread(() ->
-                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show()
-                );
             }
         }).start();
     }
-                                                       }
+}
