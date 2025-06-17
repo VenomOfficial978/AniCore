@@ -3,11 +3,10 @@ name: Build APK
 on:
   push:
     branches:
-      - main  # or 'master', depending on your branch name
+      - main
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +25,8 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
         with:
           name: anicore-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
