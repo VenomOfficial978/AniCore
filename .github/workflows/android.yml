@@ -19,8 +19,10 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+      - name: Fix Gradle permissions
+        run: |
+          chmod +x gradlew
+          chmod +x gradle/wrapper/gradle-wrapper.jar
 
       - name: Build debug APK
         run: ./gradlew assembleDebug
