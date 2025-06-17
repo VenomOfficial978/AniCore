@@ -1,1 +1,3 @@
-
+// AniCore/settings.gradle
+rootProject.name = "AniCore"
+include ':app'
