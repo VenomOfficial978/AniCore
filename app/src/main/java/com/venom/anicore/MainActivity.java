@@ -1,4 +1,3 @@
-// AniCore/app/src/main/java/com/venom/anicore/MainActivity.java
 package com.venom.anicore;
 
 import android.annotation.SuppressLint;
@@ -7,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.*;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
     private Button loginButton;
+    private Button openDashboardButton;
     private LinearLayout userInfoLayout;
     private TextView userName;
     private ImageView userAvatar;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("AniCorePrefs", MODE_PRIVATE);
 
         loginButton = findViewById(R.id.loginButton);
+        openDashboardButton = findViewById(R.id.openDashboardButton);
         userInfoLayout = findViewById(R.id.userInfoLayout);
         userName = findViewById(R.id.userName);
         userAvatar = findViewById(R.id.userAvatar);
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         loginButton.setOnClickListener(v -> openLoginWebView());
+        openDashboardButton.setOnClickListener(v -> openDashboard());
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -84,11 +87,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         loginButton = findViewById(R.id.loginButton);
+        openDashboardButton = findViewById(R.id.openDashboardButton);
         userInfoLayout = findViewById(R.id.userInfoLayout);
         userName = findViewById(R.id.userName);
         userAvatar = findViewById(R.id.userAvatar);
 
         loginButton.setOnClickListener(v -> openLoginWebView());
+        openDashboardButton.setOnClickListener(v -> openDashboard());
     }
 
     private void fetchUserData(String token) {
@@ -119,9 +124,10 @@ public class MainActivity extends AppCompatActivity {
                 String avatarUrl = viewer.getJSONObject("avatar").getString("large");
 
                 runOnUiThread(() -> {
-                    userInfoLayout.setVisibility(LinearLayout.VISIBLE);
+                    userInfoLayout.setVisibility(View.VISIBLE);
                     userName.setText("Welcome, " + name + "!");
                     Glide.with(MainActivity.this).load(avatarUrl).into(userAvatar);
+                    openDashboardButton.setVisibility(View.VISIBLE);
                 });
 
             } catch (Exception e) {
@@ -129,4 +135,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
-                  }
+
+    private void openDashboard() {
+        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        startActivity(intent);
+    }
+}
