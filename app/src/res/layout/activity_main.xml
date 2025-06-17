@@ -1,17 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="#101010">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#1e1e1e">
 
+    <!-- Title -->
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="..."
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:layout_centerInParent="true" />
+        android:text="AniCore"
+        android:textSize="28sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
 
-</RelativeLayout>
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Anime & Manga Tracker"
+        android:textSize="16sp"
+        android:textColor="#AAAAAA"
+        android:layout_marginBottom="24dp"
+        android:layout_gravity="center" />
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔓 Login with AniList"
+        android:background="#FF4081"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:padding="12dp" />
+
+    <!-- User Info Placeholder -->
+    <LinearLayout
+        android:id="@+id/userInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingTop="24dp">
+
+        <ImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher_round"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome, User!"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+</LinearLayout>
